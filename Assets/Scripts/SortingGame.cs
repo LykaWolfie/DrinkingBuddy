@@ -24,6 +24,7 @@
  * 2/20/2019, Carlo La Rosa: Initial Implementation
  * 2/20/2019, Carlo La Rosa: Sprite Spawning
  * 2/21/2019, Carlo La Rosa: Scoring System
+ * 3/6/2019, Andrei Fernandez: Added EndGame
  * */
 #endregion
 #endregion
@@ -121,15 +122,21 @@ public class SortingGame : MonoBehaviour
         GUI.Label(new Rect((Screen.width/2)-20, (Screen.height/2)-220, 600, 600), "SCORE: "+ score);
         GUI.Label(new Rect((Screen.width/2)-90, (Screen.height/2)-200, 600, 600), "The KITTY gets the MILKSHAKE");
         GUI.Label(new Rect((Screen.width/2)-85, (Screen.height/2)-180, 600, 600), "The BUNNY gets the PANCAKE");
+
         if (count >= 15) {
             if (score >= 9) {
                 GUI.Label((new Rect((Screen.width/2)-20,(Screen.height/2)-240,600,600)),"YOU PASS!");
             }
-            else {
+            else if (!StartGame.Practice()) {
                 SendSMS.Send("Hello!");
                 count = 0;
                 score = 0;
             }
+            Invoke("EndGame",3);
         }
+    }
+
+    void EndGame() {
+        StartGame.LoadNext();
     }
 }

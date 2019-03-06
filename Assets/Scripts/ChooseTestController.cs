@@ -26,6 +26,7 @@
  * 2/1/2019, Andrei Fernandez: Added Activate which displays the Choose Test Mode
  * 2/8/2019, Andrei Fernandez: Added Confirm for saving, Edited TestClick and Activate
  * to implement highlighting system
+ * 3/6/2018, Andrei Fernandez: Added Practice test function inside TestClick()
  * */
 #endregion
 #endregion
@@ -53,7 +54,7 @@ public class ChooseTestController : MonoBehaviour {
      * */
     private void Start() {
         chosen = SaveSystem.LoadCT();
-        if (chosen == null) {
+        if (chosen == null || chosen.Length != size) {
             chosen = new bool[size];
         }
         
@@ -86,7 +87,9 @@ public class ChooseTestController : MonoBehaviour {
         }
         //this is for practice test
         else {
-            //to be implemented
+            Debug.Log("HEllo");
+            Debug.Log(ES.currentSelectedGameObject.name);
+            StartGame.ChangeToGameScene(int.Parse(ES.currentSelectedGameObject.name));
         }
     }
 
@@ -131,6 +134,10 @@ public class ChooseTestController : MonoBehaviour {
     public void Confirm() {
         chosen = temp;
         SaveSystem.SaveCT(chosen);
+    }
+
+    public void TakeTest() {
+        StartGame.ChangeToGameScene(chosen);
     }
 
 }
