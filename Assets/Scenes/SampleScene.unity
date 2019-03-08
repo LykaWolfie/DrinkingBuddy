@@ -369,6 +369,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114077552698071486, guid: e9dcc60b5732ecf499df05d5e9df86dc,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2121572002}
     - target: {fileID: 224489262004571832, guid: e9dcc60b5732ecf499df05d5e9df86dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -459,11 +464,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114077552698071486, guid: e9dcc60b5732ecf499df05d5e9df86dc,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2121572002}
     - target: {fileID: 114877630218318796, guid: e9dcc60b5732ecf499df05d5e9df86dc,
         type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -3257,7 +3257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3159166c55b1a1548a43d74016d638ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 1
+  size: 2
   OK: {fileID: 1624581990}
   panel: {fileID: 910443984}
   ES: {fileID: 1923755231}

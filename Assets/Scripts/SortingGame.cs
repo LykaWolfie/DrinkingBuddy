@@ -42,6 +42,7 @@ public class SortingGame : MonoBehaviour
     private int FoodType, score = 0, count = 0;
     //array of the sprite pictures
     public Sprite[] Sprite_Pic;
+    bool ended = false;
 
     /**Method Name: Start
     * Parameters: N/A
@@ -132,7 +133,10 @@ public class SortingGame : MonoBehaviour
                 count = 0;
                 score = 0;
             }
-            Invoke("EndGame",3);
+            if (!ended) {
+                ended = !ended;
+                Invoke("EndGame", 3);
+            }
         }
     }
 

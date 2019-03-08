@@ -46,6 +46,7 @@ public class ColorGame : MonoBehaviour
     //GameObject Answer: pertains to the Game Object handling answer buttons
     public GameObject Color, Word, Answer;
 
+    bool ended = false;
 
     /**Method Name: Start
     * Parameters: N/A
@@ -139,7 +140,7 @@ public class ColorGame : MonoBehaviour
             {
                 GUI.Label((new Rect((Screen.width / 2) - 20, (Screen.height / 2) + 180, 600, 600)), "YOU PASS!");
             }
-            else
+            else if(!StartGame.Practice())
             {
                 SendSMS.Send("Hello!");
                 Debug.Log("LOSE");
@@ -147,7 +148,15 @@ public class ColorGame : MonoBehaviour
                 count = 0;
                 score = 0;
             }
+            if (!ended) {
+                ended = !ended;
+                Invoke("EndGame", 3);
+            }
         }
+    }
+
+    void EndGame() {
+        StartGame.LoadNext();
     }
 
 }

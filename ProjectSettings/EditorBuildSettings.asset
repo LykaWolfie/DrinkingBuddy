@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SortingGame.unity
     guid: d9f55920ed58f9347b606939e21d5cd0
+  - enabled: 1
+    path: Assets/Scenes/ColorGame.unity
+    guid: 0dbb421bcb2ca5144a57e1d18b0f50fb
   m_configObjects: {}

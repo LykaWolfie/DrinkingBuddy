@@ -76,6 +76,7 @@ public static class  StartGame{
     }
 
     public static void LoadNext() {
+        Debug.Log("Next Scene:" + sceneOrder[0]);
         SceneManager.LoadScene(sceneOrder[0]);
         sceneOrder.Remove(sceneOrder[0]);
     }
