@@ -34,8 +34,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SortingGame : MonoBehaviour
-{
+public class SortingGame : MonoBehaviour {
     //int FoodType: serves as the index in the array of sprite pictures, the value is "0" if the current sprite is the Milkshake and "1" if Pancake
     //int score: stores the user's game score
     //int count: counts how many rounds the game has went, maximum of 20
@@ -52,8 +51,7 @@ public class SortingGame : MonoBehaviour
     * This is activated upon start-up before Start() to set the scene.
     * Starts up the Sorting Game.
     * */
-    void Start()
-    {
+    void Start() {
         //sets the scale and the initial position of the first sprite
         transform.localScale = new Vector2(80, 85);
         transform.position = new Vector2(0, 0);
@@ -71,8 +69,7 @@ public class SortingGame : MonoBehaviour
     * This is activated once per frame.
     * Checks the current score and counts the current rounds.
     * */
-    void Update()
-    {
+    void Update() {
         Debug.Log(count);
         if (count < 15) {//if the left mouse button isup, this condition will trigger the checking only after the user has finished dragging
             if (Input.GetMouseButtonUp(0)) {
@@ -117,29 +114,37 @@ public class SortingGame : MonoBehaviour
     * A built-in unity function.
     * Used for rendering and handling GUI events.
     * */
-    void OnGUI()
-    {
+    void OnGUI() {
         //prints the current score and the game instructions
-        GUI.Label(new Rect((Screen.width/2)-20, (Screen.height/2)-220, 600, 600), "SCORE: "+ score);
-        GUI.Label(new Rect((Screen.width/2)-90, (Screen.height/2)-200, 600, 600), "The KITTY gets the MILKSHAKE");
-        GUI.Label(new Rect((Screen.width/2)-85, (Screen.height/2)-180, 600, 600), "The BUNNY gets the PANCAKE");
+        GUI.Label(new Rect((Screen.width / 2) - 20, (Screen.height / 2) - 220, 600, 600), "SCORE: " + score);
+        GUI.Label(new Rect((Screen.width / 2) - 90, (Screen.height / 2) - 200, 600, 600), "The KITTY gets the MILKSHAKE");
+        GUI.Label(new Rect((Screen.width / 2) - 85, (Screen.height / 2) - 180, 600, 600), "The BUNNY gets the PANCAKE");
 
         if (count >= 15) {
             if (score >= 9) {
-                GUI.Label((new Rect((Screen.width/2)-20,(Screen.height/2)-240,600,600)),"YOU PASS!");
+                GUI.Label((new Rect((Screen.width / 2) - 20, (Screen.height / 2) - 240, 600, 600)), "YOU PASS!");
             }
             else if (!StartGame.Practice()) {
                 SendSMS.Send("Hello!");
                 count = 0;
                 score = 0;
             }
+            //this is to avoid multiple calls of EndGame
             if (!ended) {
+                //flips bit so that it wont enter this conditional again
                 ended = !ended;
+                //calls EndGame after 3 seconds
                 Invoke("EndGame", 3);
             }
         }
     }
 
+    /**Method Name: EndGame
+    * Parameters: N/A
+    * Returns: N/A
+    * 
+    * Loads the next scene, effectively ending the game
+    * */
     void EndGame() {
         StartGame.LoadNext();
     }

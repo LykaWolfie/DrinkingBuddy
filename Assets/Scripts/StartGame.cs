@@ -33,7 +33,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class  StartGame{
+public static class StartGame {
 
     static List<int> sceneOrder = new List<int>();
     private static System.Random rng = new System.Random();
@@ -46,41 +46,61 @@ public static class  StartGame{
      *This function is for initiating practiceTest. It takes an integer as the index of the next scene to be loaded.
      * */
 
-    public static void ChangeToGameScene(int index){
-
+    public static void ChangeToGameScene(int index) {
         isPractice = true;
+
+        //adds the scene clicked then the main screen
         sceneOrder.Add(index);
         sceneOrder.Add(0);
-        //SceneManager manages the game scenes at run-time. LoadScene loads the scene name given as input.
+
+        //Loads next (which is the test clicked)
         LoadNext();
     }
 
-    /**Method Name: ChangeToGameScene (overload)
-     * Parameters: string game
+    /**Method Name: ChangeToGameScene
+     * Parameters: bool[] activeTest
      * Returns: N/A
      * 
-     *This function takes the name of the scene as string input
-     *and switches to that scene upon activation.
+     *This function is for initiating takeTest. It checks for all active tests indicated in the chooseTest, and adds
+     *adds them to the scenes to be loaded
      * */
     public static void ChangeToGameScene(bool[] activeTest) {
         isPractice = false;
-        for(int i=0;i<activeTest.Length; i++){
+        for (int i = 0; i < activeTest.Length; i++) {
             if (activeTest[i]) {
+                //add to the list only if its respective flag is true
                 sceneOrder.Add(i + 1);
             }
         }
+        //simple randomization of scenes
         List<int> shuffledScenes = sceneOrder.OrderBy(a => rng.Next()).ToList();
         sceneOrder = shuffledScenes;
+
+        //add main screen at the end
         sceneOrder.Add(0);
         LoadNext();
     }
 
+    /**Method Name: LoadNext
+     * Parameters: N/A
+     * Returns: N/A
+     * 
+     *This function is used for switching to the next scene
+     * */
     public static void LoadNext() {
         Debug.Log("Next Scene:" + sceneOrder[0]);
+
+        //loads next scene and removes it from the list
         SceneManager.LoadScene(sceneOrder[0]);
         sceneOrder.Remove(sceneOrder[0]);
     }
 
+    /**Method Name: Practice
+     * Parameters: N/A
+     * Returns: bool isPractice (indicates if it's practiceTest or takeTest)
+     * 
+     *Returns the current state of the practice flag
+     * */
     public static bool Practice() {
         return isPractice;
     }
