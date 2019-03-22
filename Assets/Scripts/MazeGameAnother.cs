@@ -84,7 +84,8 @@ public class MazeGameAnother : MonoBehaviour
             Vector3 move = mousePos - mouseStartPos;
             transform.position = playerStartPos + move;
             //NOTE: THIS IS THE END.... FINISHED THE GAME :)
-            if ((transform.position.x < (float) -4) && (transform.position.y > (float)-1))
+            
+            if ((transform.position.x <-2.7) && (transform.position.y > -1.5))
             {
                 reached_end = true;
                

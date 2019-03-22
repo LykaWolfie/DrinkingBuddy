@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MemoryGame.unity
     guid: 1d2a286938ea3024dba6c08facff9d61
+  - enabled: 1
+    path: Assets/Scenes/MazeGameAnother.unity
+    guid: 4ee419b70a84e4ed59a02a611b18aec3
   m_configObjects: {}
