@@ -24,6 +24,7 @@
  * 2/18/2019, Krizel Doydora: Initial Implementation
  * 2/20/2019, Krizel Doydora: Player Dragging
  * 2/21/2019, Krizel Doydora: Maze and Player colliders
+ * 4/3/2019, Andrei Fernandez: GUIstyle
  * */
 #endregion
 #endregion
@@ -44,7 +45,7 @@ public class MazeGameAnother : MonoBehaviour
     bool wall_is_touched = false;
     bool reached_end = false;
     bool ended = false;
-
+    GUIStyle style = new GUIStyle();
     /**Method Name: Start
     * Parameters: N/A
     * Returns: N/A
@@ -105,7 +106,9 @@ public class MazeGameAnother : MonoBehaviour
     * */
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 100), "Try to Finish the Maze");
+        style.fontSize = 30;
+        style.normal.textColor = Color.white;
+        GUI.Label(new Rect(10, 10, 100, 100), "Try to Finish the Maze",style);
 
         if (wall_is_touched)
         {
@@ -128,7 +131,7 @@ public class MazeGameAnother : MonoBehaviour
         } 
         else if (reached_end && (!wall_is_touched))
         {
-            GUI.Label(new Rect(10, 50, 100, 100), "DONE!!!!!!!!");
+            GUI.Label(new Rect(10, 30, 100, 100), "DONE!!!!!!!!", style);
 
             if (!ended)
             {

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MazeGameAnother.unity
     guid: 4ee419b70a84e4ed59a02a611b18aec3
+  - enabled: 1
+    path: Assets/Scenes/Timer.unity
+    guid: b91a0bf9adb0f5844b832b964501aa1e
   m_configObjects: {}

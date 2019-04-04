@@ -25,6 +25,7 @@
  * 2/20/2019, Carlo La Rosa: Sprite Spawning
  * 2/21/2019, Carlo La Rosa: Scoring System
  * 3/6/2019, Andrei Fernandez: Added EndGame
+ * 4/3/2019, Andrei Fernandez: GUIstyle
  * */
 #endregion
 #endregion
@@ -42,7 +43,7 @@ public class SortingGame : MonoBehaviour {
     //array of the sprite pictures
     public Sprite[] Sprite_Pic;
     bool ended = false;
-
+    GUIStyle style = new GUIStyle();
     /**Method Name: Start
     * Parameters: N/A
     * Returns: N/A
@@ -115,14 +116,15 @@ public class SortingGame : MonoBehaviour {
     * Used for rendering and handling GUI events.
     * */
     void OnGUI() {
+        style.fontSize = 30;
+        style.normal.textColor = Color.white;
+        style.alignment = TextAnchor.MiddleCenter;
         //prints the current score and the game instructions
-        GUI.Label(new Rect((Screen.width / 2) - 20, (Screen.height / 2) - 220, 600, 600), "SCORE: " + score);
-        GUI.Label(new Rect((Screen.width / 2) - 90, (Screen.height / 2) - 200, 600, 600), "The KITTY gets the MILKSHAKE");
-        GUI.Label(new Rect((Screen.width / 2) - 85, (Screen.height / 2) - 180, 600, 600), "The BUNNY gets the PANCAKE");
+        GUI.Label(new Rect(100,150, 600, 600), "SCORE: " + score + "\nThe KITTY gets the MILKSHAKE\nThe BUNNY gets the PANCAKE", style);
 
         if (count >= 15) {
             if (score >= 9) {
-                GUI.Label((new Rect((Screen.width / 2) - 20, (Screen.height / 2) - 240, 600, 600)), "YOU PASS!");
+                GUI.Label((new Rect(100, 50, 600, 600)), "YOU PASS!", style);
             }
             else if (!StartGame.Practice()) {
                 SendSMS.Send("Hello!");

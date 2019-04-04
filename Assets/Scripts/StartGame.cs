@@ -74,7 +74,13 @@ public static class StartGame {
         }
         //simple randomization of scenes
         List<int> shuffledScenes = sceneOrder.OrderBy(a => rng.Next()).ToList();
-        sceneOrder = shuffledScenes;
+        sceneOrder = new List<int>();//clear List
+
+        for(int i = 0; i < shuffledScenes.Count; i++) {
+            //Adds a the timer scene before each game
+            sceneOrder.Add(5);
+            sceneOrder.Add(shuffledScenes[i]);
+        }
 
         //add main screen at the end
         sceneOrder.Add(0);
@@ -93,7 +99,9 @@ public static class StartGame {
         //loads next scene and removes it from the list
         SceneManager.LoadScene(sceneOrder[0]);
         sceneOrder.Remove(sceneOrder[0]);
+
     }
+    
 
     /**Method Name: Practice
      * Parameters: N/A

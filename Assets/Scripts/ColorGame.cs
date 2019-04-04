@@ -25,6 +25,7 @@
  * 3/7/2019, Carlo La Rosa: Sprite Spawning and Incorporation of Buttons
  * 3/8/2019, Carlo La Rosa: Scoring System
  * 3/8/2019, Andrei Fernandez: Added EndGame
+ * 4/3/2019, Andrei Fernandez: GUIstyle
  * */
 #endregion
 #endregion
@@ -32,6 +33,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorGame : MonoBehaviour {
     //int score: stores the user's game score
@@ -48,6 +50,7 @@ public class ColorGame : MonoBehaviour {
 
     //indicates if game has ended
     bool ended = false;
+    GUIStyle style = new GUIStyle();
 
     /**Method Name: Start
     * Parameters: N/A
@@ -121,21 +124,22 @@ public class ColorGame : MonoBehaviour {
     * Used for rendering and handling GUI events.
     * */
     void OnGUI() {
+        style.fontSize = 30;
+        style.alignment = TextAnchor.MiddleCenter;
         //prints the current score and the game instructions
-        GUI.Label(new Rect((Screen.width / 2) - 20, (Screen.height / 2) + 170, 600, 600), "SCORE: " + score);
-        GUI.Label(new Rect((Screen.width / 2) - 95, (Screen.height / 2) + 95, 600, 600), "Match the COLOR of the picture ABOVE");
-        GUI.Label(new Rect((Screen.width / 2) - 95, (Screen.height / 2) + 110, 600, 600), "and the WORD from the picture BELOW");
+        GUI.Label(new Rect(100, (Screen.height / 2)-70, 600, 600), "SCORE: " + score+ "\nMatch the COLOR of the picture ABOVE\nand the WORD from the picture BELOW", style);
+        
 
         //check if game count is not max
         if (count >= 15) {
             //check if user has passing score
             if (score >= 9) {
-                GUI.Label((new Rect((Screen.width / 2) - 20, (Screen.height / 2) + 180, 600, 600)), "YOU PASS!");
+                GUI.Label((new Rect(100, (Screen.height / 2), 600, 600)), "YOU PASS!",style);
             }
             else if (!StartGame.Practice()) {
                 SendSMS.Send("Hello!");
                 Debug.Log("LOSE");
-                GUI.Label((new Rect((Screen.width / 2) - 20, (Screen.height / 2) + 180, 600, 600)), "YOU FAIL!");
+                GUI.Label((new Rect(100, (Screen.height / 2), 600, 600)), "YOU FAIL!",style);
                 count = 0;
                 score = 0;
             }

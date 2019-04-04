@@ -25,6 +25,8 @@
  * 3/15/2019, Andrei Fernandez: Added spawn
  * 3/19/2019, Andrei Fernandez: Edited spawned prefabs to be buttons, Fixed all functions to be coroutine compatible
  * 3/22/2019, Andrei Fernandez: Changed from 4x4 to 3x3
+ * 4/3/2019, Andrei Fernandez: GUIstyle
+ * 4/4/2019, Andrei Fernandez: Added OKpanel
  * */
 #endregion
 #endregion
@@ -36,11 +38,11 @@ using System.Collections;
 
 public class MemoryGame : MonoBehaviour {
     public EventSystem ES;
-    public GameObject MemoryBlock;
+    public GameObject MemoryBlock,OKPanel;
     int clickNum,tries = 5;
     bool ended, coroutine;
     int[] sequence = {0,1, 2, 3, 4, 5, 6, 7, 8};
-
+    GUIStyle style = new GUIStyle();
     /**Method Name: Start
     * Parameters: N/A
     * Returns: N/A
@@ -70,9 +72,20 @@ public class MemoryGame : MonoBehaviour {
             //Sets the position of the object relative to the anchor(Top-left)
             block.GetComponent<RectTransform>().anchoredPosition = new Vector2(((x%3)+1)*(800/4), -(((x/3)+1)*(1280/4)));
         }
-        //shows the sequence to the player
+        //activates a panel and waits for an OK from the player before showing the sequence
+        OKPanel.SetActive(true);
+        OKPanel.transform.SetAsLastSibling();
+    }
+    /**Method Name: OK
+    * Parameters: N/A
+    * Returns: N/A
+    * 
+    * This is to trigger OnClick button event in Unity since IEnumerator functions cannot be called by buttons
+    * */
+    public void OK() {
         StartCoroutine(ShowSequence());
     }
+
     /**Method Name: ShowSequence()
     * Parameters: N/A
     * Returns: IEnumerator
@@ -109,7 +122,7 @@ public class MemoryGame : MonoBehaviour {
             else {
                 tries--;
                 clickNum = 0;
-                StartCoroutine(ShowSequence());
+                OKPanel.SetActive(true);
             }
         }       
     }
@@ -121,12 +134,14 @@ public class MemoryGame : MonoBehaviour {
     * Used for rendering and handling GUI events.
     * */
     void OnGUI() {
+        style.fontSize = 30;
+        style.normal.textColor = Color.white;
         //prints the current score and the game instructions
-        GUI.Label(new Rect((Screen.width / 2) - 20, (Screen.height / 2) - 220, 600, 600), "TRIES: " + tries);
+        GUI.Label(new Rect((Screen.width / 2) - 50, (Screen.height / 2) - 210, 600, 600), "TRIES: " + tries, style);
 
         //end game if user guesses sequence correctly
         if (clickNum >= sequence.Length){
-            GUI.Label((new Rect((Screen.width / 2) - 20, (Screen.height / 2) - 200, 600, 600)), "YOU PASS!");   
+            GUI.Label((new Rect((Screen.width / 2) - 70, (Screen.height / 2) - 170, 600, 600)), "YOU PASS!", style);   
             //this is to avoid multiple calls of EndGame
             if (!ended) {
                 //flips bit so that it wont enter this conditional again
