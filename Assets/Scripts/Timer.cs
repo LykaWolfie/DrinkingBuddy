@@ -47,6 +47,8 @@ public class Timer : MonoBehaviour
         time -= Time.deltaTime;
         if (time <= 0) {
             StartGame.LoadNext();
+        }
+        if (time >= 0) {
             // divided by 60 for the minutes, modulo for the seconds
             countdown.text = Mathf.Floor(time / 60).ToString("00") + ":" + Mathf.Floor(time % 60).ToString("00");
         }
