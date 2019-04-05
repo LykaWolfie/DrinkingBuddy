@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -49,3 +50,8 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+=======
+debug.log
+debug.log
+.DS_Store
+>>>>>>> ab36d8198f240ad4061982252a2eb8e97101049d
