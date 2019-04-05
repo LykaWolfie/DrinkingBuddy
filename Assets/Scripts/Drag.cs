@@ -34,6 +34,7 @@ using UnityEngine;
 public class Drag : MonoBehaviour
 {
     //standard z position of the mouse
+    bool is_game_paused = false;
     float distance = 10;
 
     /**Method Name: OnMouseDrag
@@ -49,12 +50,26 @@ public class Drag : MonoBehaviour
      * */
     void OnMouseDrag()
     {
-        //vector variable that saves the x and y position of the mouse
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
-        //converts the mouse position to a position on the screen
-        Vector3 spritePos = Camera.main.ScreenToWorldPoint(mousePosition);
-        //changes the sprite position
-        transform.position = spritePos;
+       if (!is_game_paused) {
+            //vector variable that saves the x and y position of the mouse
+            Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
+            //converts the mouse position to a position on the screen
+            Vector3 spritePos = Camera.main.ScreenToWorldPoint(mousePosition);
+            //changes the sprite position
+            transform.position = spritePos;
+        }
     }
+
+    /**Method Name: pauseButton
+   * Parameters: N/A
+   * Returns: N/A
+   * 
+   * Switches boolean to pause dragging.
+   * */
+    public void pauseButton()
+    {
+        is_game_paused = !is_game_paused;
+    }
+
 
 }

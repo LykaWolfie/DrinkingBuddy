@@ -26,6 +26,7 @@
  * 2/21/2019, Carlo La Rosa: Scoring System
  * 3/6/2019, Andrei Fernandez: Added EndGame
  * 4/3/2019, Andrei Fernandez: GUIstyle
+ * 4/6/2019, Krizel Rika Doydora: Added Pause to Game.
  * */
 #endregion
 #endregion
@@ -43,6 +44,7 @@ public class SortingGame : MonoBehaviour {
     //array of the sprite pictures
     public Sprite[] Sprite_Pic;
     bool ended = false;
+    bool is_game_paused = false;
     GUIStyle style = new GUIStyle();
     /**Method Name: Start
     * Parameters: N/A
@@ -71,38 +73,50 @@ public class SortingGame : MonoBehaviour {
     * Checks the current score and counts the current rounds.
     * */
     void Update() {
-        Debug.Log(count);
-        if (count < 15) {//if the left mouse button isup, this condition will trigger the checking only after the user has finished dragging
-            if (Input.GetMouseButtonUp(0)) {
-                //checks if the position of the sprite is within the range of accepted values on the right side
-                if ((transform.position.x > 120) && (transform.position.y < 100) && (transform.position.y > -100)) {
-                    //checks for the correct sprite
-                    if (FoodType == 1) {
-                        score++;
-                    }
-                    else {
-                        if (score > 0) {
-                            score--;
+        if (!is_game_paused) {
+            Debug.Log(count);
+            if (count < 15)
+            {//if the left mouse button isup, this condition will trigger the checking only after the user has finished dragging
+                if (Input.GetMouseButtonUp(0))
+                {
+                    //checks if the position of the sprite is within the range of accepted values on the right side
+                    if ((transform.position.x > 120) && (transform.position.y < 100) && (transform.position.y > -100))
+                    {
+                        //checks for the correct sprite
+                        if (FoodType == 1)
+                        {
+                            score++;
                         }
-                    }
-                    //increment the game round and restart
-                    count++;
-                    Start();
-                }
-                //checks if the position of the sprite is within the range of accepted values on the left side
-                else if ((transform.position.x < -120) && (transform.position.y < 100) && (transform.position.y > -100)) {
-                    //checks for the correct sprite
-                    if (FoodType == 0) {
-                        score++;
-                    }
-                    else {
-                        if (score > 0) {
-                            score--;
+                        else
+                        {
+                            if (score > 0)
+                            {
+                                score--;
+                            }
                         }
+                        //increment the game round and restart
+                        count++;
+                        Start();
                     }
-                    //increment the game round and restart
-                    count++;
-                    Start();
+                    //checks if the position of the sprite is within the range of accepted values on the left side
+                    else if ((transform.position.x < -120) && (transform.position.y < 100) && (transform.position.y > -100))
+                    {
+                        //checks for the correct sprite
+                        if (FoodType == 0)
+                        {
+                            score++;
+                        }
+                        else
+                        {
+                            if (score > 0)
+                            {
+                                score--;
+                            }
+                        }
+                        //increment the game round and restart
+                        count++;
+                        Start();
+                    }
                 }
             }
         }
@@ -140,6 +154,19 @@ public class SortingGame : MonoBehaviour {
             }
         }
     }
+
+    /**Method Name: pauseButton
+   * Parameters: N/A
+   * Returns: N/A
+   * 
+   * Switches boolean to pause the Sorting Game.
+   * */
+    public void pauseButton()
+    {
+        is_game_paused = !is_game_paused;
+    }
+
+
 
     /**Method Name: EndGame
     * Parameters: N/A

@@ -25,6 +25,7 @@
  * 2/20/2019, Krizel Doydora: Player Dragging
  * 2/21/2019, Krizel Doydora: Maze and Player colliders
  * 4/3/2019, Andrei Fernandez: GUIstyle
+ * 4/6/2019, Krizel Rika Doydora: Added Pause to Game.
  * */
 #endregion
 #endregion
@@ -39,12 +40,14 @@ public class MazeGameAnother : MonoBehaviour
     // if events (as variable names suggesst) have happened
     // mouseStartPos and playerStartPos are just initiallization 
     // for positions of mouse and player real time
+    // is_game_pause_ indicates if game is paused or not
     bool dragging = false;
     Vector3 mouseStartPos;
     Vector3 playerStartPos;
     bool wall_is_touched = false;
     bool reached_end = false;
     bool ended = false;
+    bool is_game_paused = false;
     GUIStyle style = new GUIStyle();
     /**Method Name: Start
     * Parameters: N/A
@@ -68,33 +71,36 @@ public class MazeGameAnother : MonoBehaviour
    * */
     void FixedUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!is_game_paused)
         {
-            dragging = true;
-            mouseStartPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-            playerStartPos = transform.position;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            dragging = false;
-        }
-
-        if (dragging)
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-            Vector3 move = mousePos - mouseStartPos;
-            transform.position = playerStartPos + move;
-            //NOTE: THIS IS THE END.... FINISHED THE GAME :)
-            
-            if ((transform.position.x <-2.7) && (transform.position.y > -1.5))
+            if (Input.GetMouseButtonDown(0))
             {
-                reached_end = true;
-               
+                dragging = true;
+                mouseStartPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+                playerStartPos = transform.position;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                dragging = false;
             }
 
-         
-        }
+            if (dragging)
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+                Vector3 move = mousePos - mouseStartPos;
+                transform.position = playerStartPos + move;
+                //NOTE: THIS IS THE END.... FINISHED THE GAME :)
 
+                if ((transform.position.x < -3.9) && (transform.position.y > 1.25))
+                {
+                    reached_end = true;
+
+                }
+
+
+            }
+        }
+       
     }
 
     /**Method Name: OnGUI
@@ -108,7 +114,7 @@ public class MazeGameAnother : MonoBehaviour
     {
         style.fontSize = 30;
         style.normal.textColor = Color.white;
-        GUI.Label(new Rect(10, 10, 100, 100), "Try to Finish the Maze",style);
+        //GUI.Label(new Rect(10, 10, 100, 100), "Try to Finish the Maze",style);
 
         if (wall_is_touched)
         {
@@ -154,6 +160,17 @@ public class MazeGameAnother : MonoBehaviour
         Debug.Log("Touched wall");
         Debug.Log(other);
         wall_is_touched = true;
+    }
+
+    /**Method Name: pauseButton
+    * Parameters: N/A
+    * Returns: N/A
+    * 
+    * Switches boolean to pause the Maze Game.
+    * */
+    public void pauseButton()
+    {
+        is_game_paused = !is_game_paused;
     }
 
     /**Method Name: EndGame
