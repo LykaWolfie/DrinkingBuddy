@@ -74,7 +74,7 @@ public static class SendSMS
         // SMS Information
         
         string phone = "09952128068";
-        string text = "Hello World. This SMS is sent using Android SMS Manager.";
+        string text = "YOUR FRIEND IS DRUNK! Please send him/her home!";
         string alert;
 
         try
