@@ -26,6 +26,7 @@
  * 3/8/2019, Carlo La Rosa: Scoring System
  * 3/8/2019, Andrei Fernandez: Added EndGame
  * 4/3/2019, Andrei Fernandez: GUIstyle
+ * 4/6/2019, Krizel Rika Doydora: Added Pause Game
  * */
 #endregion
 #endregion
@@ -42,6 +43,7 @@ public class ColorGame : MonoBehaviour {
     //int c: stores the index of the Color sprite
     //int w: stores the index of the Word sprite
     private int score = 0, count = 0, ans = 0, c, w;
+    bool is_game_paused = false;
 
     //GameObject Color: pertains to the Color sprite
     //GameObject Word: pertains to the Word sprite
@@ -77,43 +79,50 @@ public class ColorGame : MonoBehaviour {
     * */
     void Update() {
         //check if game count is not max
-        if (count < 15) {
-            //store the user's answer
-            ans = Answer.GetComponent<ColorButtons>().answer;
-            //store the index of Color sprite
-            c = Color.GetComponent<ColorSpawn>().Val;
-            //store the index of Word sprite
-            w = Word.GetComponent<ColorSpawn>().Val;
+        if (!is_game_paused){
+            if (count < 15)
+            {
+                //store the user's answer
+                ans = Answer.GetComponent<ColorButtons>().answer;
+                //store the index of Color sprite
+                c = Color.GetComponent<ColorSpawn>().Val;
+                //store the index of Word sprite
+                w = Word.GetComponent<ColorSpawn>().Val;
 
-            //c modulo 4 (there are four colors) should be equal to w to signify a correct pair of sprites to which ans = 1
-            //if the pair is incorrect, then ans = -1
-            if (((c % 4 == w) && (ans == 1)) || ((c % 4 != w) && (ans == -1))) {
-                Debug.Log("Correct answer");
-                count++;
-                score++;
-                //set the user answer back to 0, the neutral state while waiting for the new answer for the next pair
-                Answer.GetComponent<ColorButtons>().answer = 0;
-                //respawn new sprite pair
-                Start();
-            }
-            //the case the user's answer is incorrect
-            else if (((c % 4 == w) && (ans == -1)) || ((c % 4 != w) && (ans == 1))) {
-                Debug.Log("Incorrect answer");
-                count++;
-                //right minus wrong
-                if (score == 0) {
-                    score = 0;
+                //c modulo 4 (there are four colors) should be equal to w to signify a correct pair of sprites to which ans = 1
+                //if the pair is incorrect, then ans = -1
+                if (((c % 4 == w) && (ans == 1)) || ((c % 4 != w) && (ans == -1)))
+                {
+                    Debug.Log("Correct answer");
+                    count++;
+                    score++;
+                    //set the user answer back to 0, the neutral state while waiting for the new answer for the next pair
+                    Answer.GetComponent<ColorButtons>().answer = 0;
+                    //respawn new sprite pair
+                    Start();
                 }
-                else {
-                    score--;
+                //the case the user's answer is incorrect
+                else if (((c % 4 == w) && (ans == -1)) || ((c % 4 != w) && (ans == 1)))
+                {
+                    Debug.Log("Incorrect answer");
+                    count++;
+                    //right minus wrong
+                    if (score == 0)
+                    {
+                        score = 0;
+                    }
+                    else
+                    {
+                        score--;
+                    }
+                    //set the user answer back to 0, the neutral state while waiting for the new answer for the next pair
+                    Answer.GetComponent<ColorButtons>().answer = 0;
+                    //respawn new sprite pair
+                    Start();
                 }
-                //set the user answer back to 0, the neutral state while waiting for the new answer for the next pair
-                Answer.GetComponent<ColorButtons>().answer = 0;
-                //respawn new sprite pair
-                Start();
             }
+            //Word.GetComponent<Word>
         }
-        //Word.GetComponent<Word>
     }
 
     /**Method Name: OnGUI
@@ -124,10 +133,10 @@ public class ColorGame : MonoBehaviour {
     * Used for rendering and handling GUI events.
     * */
     void OnGUI() {
-        style.fontSize = 30;
+        style.fontSize = 100;
         style.alignment = TextAnchor.MiddleCenter;
         //prints the current score and the game instructions
-        GUI.Label(new Rect(100, (Screen.height / 2)-70, 600, 600), "SCORE: " + score+ "\nMatch the COLOR of the picture ABOVE\nand the WORD from the picture BELOW", style);
+        GUI.Label(new Rect(100, (Screen.height / 2)-70, 600, 600), "SCORE: " + score+ "", style);
         
 
         //check if game count is not max
@@ -152,6 +161,19 @@ public class ColorGame : MonoBehaviour {
             }
         }
     }
+
+    /**Method Name: pauseButton
+     * Parameters: N/A
+     * Returns: N/A
+     * 
+     * Switches boolean to pause the Color Game.
+     * */
+    public void pauseButton()
+    {
+        is_game_paused = !is_game_paused;
+    }
+
+
 
     /**Method Name: EndGame
     * Parameters: N/A

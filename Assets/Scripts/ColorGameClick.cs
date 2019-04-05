@@ -23,14 +23,14 @@
  * 
  *
  *4/6/2019, Krizel Rika Doydora: Initial Implementation
- *4/6/2019, Krizel Rika Doydora: Created Button for clearer Sorting Game Instruction
+ *4/6/2019, Krizel Rika Doydora: Created Button for clearer Color Game Instruction
  * */
 #endregion
 #endregion
 using UnityEngine;
 using System.Collections;
 
-public class SortGameClick : MonoBehaviour
+public class ColorGameClick : MonoBehaviour
 {
     bool showInstruction = false;
     private Texture img;
@@ -45,7 +45,7 @@ public class SortGameClick : MonoBehaviour
     * */
     private void Start()
     {
-        img = Resources.Load<Texture2D>("Sort");
+        img = Resources.Load<Texture2D>("Color");
 
     }
 
@@ -55,7 +55,7 @@ public class SortGameClick : MonoBehaviour
     * Returns: N/A
     * 
     * This method controls if method should be shown or not.
-    * */   
+    * */
     public void ClickTest()
     {
         Debug.Log("Clicked");
@@ -77,9 +77,9 @@ public class SortGameClick : MonoBehaviour
         myStyle.normal.textColor = Color.white;
         if (showInstruction)
         {
-            GUI.BeginGroup(new Rect(100,300, 600, 600));
+            GUI.BeginGroup(new Rect(0, 100, 800, 800));
 
-            GUI.DrawTexture(new Rect(0, 0, 600, 600), img);
+            GUI.DrawTexture(new Rect(0, 0, 800, 800), img);
 
             GUI.EndGroup();
         }

@@ -23,6 +23,7 @@
  * 
  * 3/7/2019, Carlo La Rosa: Button Creation
  * 3/7/2019, Carlo La Rosa: Incorporation into Color Game
+ * 4/6/2019, Krizel Rika Doydora: Added Game Pause
  * */
 #endregion
 #endregion
@@ -39,6 +40,7 @@ public class ColorButtons : MonoBehaviour
     //answer = 1 means answer is "Correct"
     //answer = -1 means answer is "Wrong"
     public int answer=0;
+    bool is_game_paused = false;
 
     //Button correct: the button that pertains to the user answer "Correct"
     //Button wrong: the button that pertains to the user answer "Wrong"
@@ -54,8 +56,10 @@ public class ColorButtons : MonoBehaviour
     * */
     void Start()
     {
-        correct.onClick.AddListener(AnswerCorrect);
-        wrong.onClick.AddListener(AnswerWrong);
+        if (!is_game_paused) {
+            correct.onClick.AddListener(AnswerCorrect);
+            wrong.onClick.AddListener(AnswerWrong);
+        }
     }
 
     /**Method Name: Update
@@ -83,8 +87,13 @@ public class ColorButtons : MonoBehaviour
     * */
     void AnswerCorrect()
     {
-        answer = 1;
-        Debug.Log("1");
+        if (!is_game_paused){
+            answer = 1;
+            Debug.Log("1");
+        }
+        else{
+            answer = 0;
+        }
     }
 
     /**Method Name: AnswerWrong
@@ -98,7 +107,23 @@ public class ColorButtons : MonoBehaviour
     * */
     void AnswerWrong()
     {
-        answer = -1;
-        Debug.Log("0");
+        if (!is_game_paused){
+            answer = -1;
+            Debug.Log("0");
+        }
+        else{
+            answer = 0;
+        }
+    }
+
+    /**Method Name: pauseButton
+    * Parameters: N/A
+    * Returns: N/A
+    * 
+    * Switches boolean to pause the Color Game.
+    * */
+    public void pauseButton()
+    {
+        is_game_paused = !is_game_paused;
     }
 }

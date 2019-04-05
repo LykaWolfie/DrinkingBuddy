@@ -13,5 +13,5 @@ public class TestButtonClick : MonoBehaviour {     bool showInstruction = fa
     /**Method Name: OnGUI     * Parameters: N/A     * Returns: N/A     *      * A built-in unity function.     * Used for rendering and handling GUI events.     * */
     public void OnGUI()     {         GUIStyle myStyle = new GUIStyle();
         myStyle.fontSize = 50;
-        myStyle.normal.textColor = Color.white;         if (showInstruction)         {             GUI.BeginGroup(new Rect(Screen.width / 2 - 150, 50, 300, 300));            
-            GUI.DrawTexture(new Rect(0, 0, 300, 300), img);              GUI.EndGroup();         }     }  }  
+        myStyle.normal.textColor = Color.white;         if (showInstruction)         {             GUI.BeginGroup(new Rect(100, 250, 600, 600));            
+            GUI.DrawTexture(new Rect(0, 0, 600, 600), img);              GUI.EndGroup();         }     }  }  

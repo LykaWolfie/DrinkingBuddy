@@ -91,7 +91,7 @@ public class MazeGameAnother : MonoBehaviour
                 transform.position = playerStartPos + move;
                 //NOTE: THIS IS THE END.... FINISHED THE GAME :)
 
-                if ((transform.position.x < -3.9) && (transform.position.y > 1.25))
+                if ((transform.position.x < -2.5) && (transform.position.y > 1.33))
                 {
                     reached_end = true;
 
@@ -99,6 +99,8 @@ public class MazeGameAnother : MonoBehaviour
 
 
             }
+
+           // Debug.Log(transform.position.y);
         }
        
     }

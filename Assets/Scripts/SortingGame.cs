@@ -130,11 +130,11 @@ public class SortingGame : MonoBehaviour {
     * Used for rendering and handling GUI events.
     * */
     void OnGUI() {
-        style.fontSize = 30;
+        style.fontSize = 50;
         style.normal.textColor = Color.white;
         style.alignment = TextAnchor.MiddleCenter;
         //prints the current score and the game instructions
-        GUI.Label(new Rect(100,150, 600, 600), "SCORE: " + score + "\nThe KITTY gets the MILKSHAKE\nThe BUNNY gets the PANCAKE", style);
+        GUI.Label(new Rect(100,150, 600, 600), "SCORE: " + score + "", style);
 
         if (count >= 15) {
             if (score >= 9) {
