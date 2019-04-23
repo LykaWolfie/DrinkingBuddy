@@ -47,6 +47,9 @@ public class Swipe : MonoBehaviour {
      * This is called every few frames.
      * Takes all inputs.
      * */
+    private void Start() {
+        
+    }
     void Update () {
         //get position of touch upon clicking
         if (Input.GetMouseButtonDown(0)) {

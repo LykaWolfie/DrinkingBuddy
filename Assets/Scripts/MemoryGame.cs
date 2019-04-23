@@ -70,7 +70,7 @@ public class MemoryGame : MonoBehaviour {
             //Anchors the objects to the screen to avoid displacement
             block.transform.SetParent(this.transform);
             //Sets the position of the object relative to the anchor(Top-left)
-            block.GetComponent<RectTransform>().anchoredPosition = new Vector2(((x%3)+1)*(800/4), -(((x/3)+1)*(1280/4)));
+            block.GetComponent<RectTransform>().anchoredPosition = new Vector2(((x%3)+1)*(Screen.width/4), -(((x/3)+1)*(Screen.height/4)));
         }
         //activates a panel and waits for an OK from the player before showing the sequence
         OKPanel.SetActive(true);

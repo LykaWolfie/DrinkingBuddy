@@ -91,7 +91,7 @@ public class MazeGameAnother : MonoBehaviour
                 transform.position = playerStartPos + move;
                 //NOTE: THIS IS THE END.... FINISHED THE GAME :)
 
-                if ((transform.position.x < -2.5) && (transform.position.y > 1.33))
+                if ((transform.position.x < -340) && (transform.position.y > 100))
                 {
                     reached_end = true;
 
