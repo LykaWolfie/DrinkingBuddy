@@ -35,6 +35,7 @@ public class BuddyData {
 
     string name;
     string number;
+    public bool isActive=false;
 
     /**Method Name: BuddyData (class constructor)
      * Parameters: string name
@@ -57,4 +58,13 @@ public class BuddyData {
     public override string ToString() {
         return name + "\n" + number + "\n";
     }
+
+    public string getNumber() {
+        return number;
+    }
+
+    public string getName() {
+        return name;
+    }
+
 }

@@ -32,6 +32,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BuddyController : MonoBehaviour {
 
@@ -40,6 +41,7 @@ public class BuddyController : MonoBehaviour {
     public InputField buddyNumber;
     public GameObject buddyPrefab; //An Image(bg) with a child Text(content)
     public GameObject container;
+    public EventSystem ES;
 
     /**Method Name: Awake
      * Parameters: N/A
@@ -65,6 +67,30 @@ public class BuddyController : MonoBehaviour {
         UpdateList();
     }
 
+    public void deleteBuddy() {
+        BuddyData toDelete;
+        //get transform
+        var temp = ES.currentSelectedGameObject.GetComponentInParent<Transform>().name;
+        int index = temp[temp.Length - 1];
+        buddies.RemoveAt(index);
+    }
+    //call when start button pressed
+    public void setBuddies() {
+        SendSMS.setBuddies(buddies);
+    }
+
+    public void toggleActive() {
+        int index = int.Parse(ES.currentSelectedGameObject.transform.parent.name);
+        buddies[index].isActive = !buddies[index].isActive ;
+        if (buddies[index].isActive) {
+            ES.currentSelectedGameObject.GetComponentInChildren<Text>().text = "Active";
+        }
+        else {
+
+            ES.currentSelectedGameObject.GetComponentInChildren<Text>().text = "Inactive";
+        }
+        SaveSystem.AddBuddy(buddies);
+    }
     /**Method Name: getInput
      * Parameters: N/A
      * Returns: N/A
@@ -96,12 +122,22 @@ public class BuddyController : MonoBehaviour {
         //this creates objects equal to the number of BuddyDatas which houses the information
         for (int x = 0; x < buddies.Count; x++) {
             GameObject buddy = Instantiate(buddyPrefab) as GameObject;
-            buddy.name = "buddy" + x;
+            buddy.name = x.ToString();
             //Anchors the objects to the screen to avoid displacement
             buddy.transform.SetParent(container.transform);
             //Sets the position of the object relative to the anchor(Top-center)
             buddy.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,-(x*110)-100);
             buddy.GetComponentInChildren<Text>().text = buddies[x].ToString();
+            Debug.Log(buddy.transform.GetChild(1).name);
+            buddy.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(toggleActive);
+            if (buddies[x].isActive) {
+                Debug.Log(buddy.transform.GetChild(1).name);
+                buddy.transform.GetChild(1).GetComponentInChildren<Text>().text = "Active";
+            }
+            else {
+                buddy.transform.GetChild(1).GetComponentInChildren<Text>().text = "Inactive";
+            }
+            
         }
     }
 }

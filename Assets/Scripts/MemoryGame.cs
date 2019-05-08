@@ -154,6 +154,7 @@ public class MemoryGame : MonoBehaviour {
         else if(tries <= 0) {
             if (!StartGame.Practice()) {
                 SendSMS.Send("Hello!");
+                tries = 5;
 
             }
             if (!ended) {
@@ -174,4 +175,4 @@ public class MemoryGame : MonoBehaviour {
     void EndGame() {
         StartGame.LoadNext();
     }
-}
+} 

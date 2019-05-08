@@ -50,9 +50,10 @@ public static class StartGame {
         isPractice = true;
 
         //adds the scene clicked then the main screen
+        sceneOrder = new List<int>();
         sceneOrder.Add(index);
         sceneOrder.Add(0);
-
+        
         //Loads next (which is the test clicked)
         LoadNext();
     }
@@ -66,6 +67,7 @@ public static class StartGame {
      * */
     public static void ChangeToGameScene(bool[] activeTest) {
         isPractice = false;
+        sceneOrder = new List<int>();
         for (int i = 0; i < activeTest.Length; i++) {
             if (activeTest[i]) {
                 //add to the list only if its respective flag is true

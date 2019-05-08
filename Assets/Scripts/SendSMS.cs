@@ -28,11 +28,12 @@
 #endregion
 #endregion
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class SendSMS 
 {
     static AndroidJavaObject currentActivity;
-
+    private static List<BuddyData> buddies;
     /**Method Name: Send
     * Parameters: string phone (number of receiver)
     * Returns: N/A
@@ -45,6 +46,10 @@ public static class SendSMS
         {
             RunAndroidUiThread();
         }
+    }
+
+    public static void setBuddies(List<BuddyData> update) {
+        buddies = update;
     }
 
     /**Method Name: RunAndroidUiThread
@@ -72,33 +77,34 @@ public static class SendSMS
         AndroidJavaObject context = currentActivity.Call<AndroidJavaObject>("getApplicationContext");
         
         // SMS Information
-        
-        string phone = "09952128068";
-        string text = "YOUR FRIEND IS DRUNK! Please send him/her home!";
-        string alert;
+        foreach(BuddyData buddy in buddies) {
+            if (buddy.isActive) {
+                string phone = buddy.getNumber();
+                string text = "Hello " + buddy.getName() + "! YOUR FRIEND IS DRUNK! Please send him/her home!";
+                string alert;
 
-        try
-        {
-            // Actual sending of SMS
+                try {
+                    // Actual sending of SMS
 
-            AndroidJavaClass SMSManagerClass = new AndroidJavaClass("android.telephony.SmsManager");
-            AndroidJavaObject SMSManagerObject = SMSManagerClass.CallStatic<AndroidJavaObject>("getDefault");
-            SMSManagerObject.Call("sendTextMessage", phone, null, text, null, null);
+                    AndroidJavaClass SMSManagerClass = new AndroidJavaClass("android.telephony.SmsManager");
+                    AndroidJavaObject SMSManagerObject = SMSManagerClass.CallStatic<AndroidJavaObject>("getDefault");
+                    SMSManagerObject.Call("sendTextMessage", phone, null, text, null, null);
 
-            alert = "Message sent successfully.";
+                    alert = "Message sent successfully.";
+                }
+                catch (System.Exception e) {
+                    Debug.Log("Error : " + e.StackTrace.ToString());
+
+                    alert = "Error has been Occurred. Fail to send message.";
+                }
+
+                // Show Toast or Alert message
+
+                AndroidJavaClass Toast = new AndroidJavaClass("android.widget.Toast");
+                AndroidJavaObject javaString = new AndroidJavaObject("java.lang.String", alert);
+                AndroidJavaObject toast = Toast.CallStatic<AndroidJavaObject>("makeText", context, javaString, Toast.GetStatic<int>("LENGTH_SHORT"));
+                toast.Call("show");
+            }
         }
-        catch (System.Exception e)
-        {
-            Debug.Log("Error : " + e.StackTrace.ToString());
-
-            alert = "Error has been Occurred. Fail to send message.";
-        }
-
-        // Show Toast or Alert message
-
-        AndroidJavaClass Toast = new AndroidJavaClass("android.widget.Toast");
-        AndroidJavaObject javaString = new AndroidJavaObject("java.lang.String", alert);
-        AndroidJavaObject toast = Toast.CallStatic<AndroidJavaObject>("makeText", context, javaString, Toast.GetStatic<int>("LENGTH_SHORT"));
-        toast.Call("show");
     }
 }
